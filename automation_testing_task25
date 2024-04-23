@@ -1,0 +1,137 @@
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support.ui import Select
+#initializing the driver
+class Advanced_name_search:
+    def __init__(self,url):
+        self.url = url
+        self.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+
+# open webpage
+    def open_url(self):
+        self.driver.implicitly_wait(10)
+        self.driver.get(self.url)
+        self.driver.maximize_window()
+# filling name text box
+    def name_box(self):
+        # self.driver.execute_script('window.scrollBy(0,1000)')
+        name = self.driver.find_element(By.XPATH, '//*[@id="nameTextAccordion"]/div[1]/label/span[1]/div')
+        name.click()
+        wait = WebDriverWait(self.driver, 10)
+        name_box = wait.until(EC.visibility_of_element_located((By.XPATH, '/html/body/div[2]/main/div[2]/div[3]/section/section/div/section/section/div[2]/div/section/div[2]/div[1]/section/div/div[1]/div[2]/div/div/div/div/div/div/input')))
+        name_box.send_keys("yogeswaran")
+# filling birthdate text box
+    def birth_date(self):
+        birth_date = self.driver.find_element(By.XPATH, '//*[@id="birthDateAccordion"]/div[1]/label/span[1]/div')
+        birth_date.click()
+        wait = WebDriverWait(self.driver, 10)
+        birth_date_from = wait.until(EC.visibility_of_element_located((By.XPATH, '/html/body/div[2]/main/div[2]/div[3]/section/section/div/section/section/div[2]/div/section/div[2]/div[1]/section/div/div[2]/div[2]/div/div/div[2]/div[1]/div/div/div/input')))
+        birth_date_from.send_keys("1997-08")
+        birth_date_to = self.driver.find_element(By.XPATH, '/html/body/div[2]/main/div[2]/div[3]/section/section/div/section/section/div[2]/div/section/div[2]/div[1]/section/div/div[2]/div[2]/div/div/div[2]/div[2]/div/div/div/input')
+        birth_date_to.send_keys("2024-04")
+        self.driver.execute_script('window.scrollBy(0,500)')
+#filling birthday box
+    def birthday(self):
+        birthday = self.driver.find_element(By.XPATH, '//*[@id="birthdayAccordion"]/div[1]/label/span[1]/div')
+        birthday.click()
+        birthday_box = self.driver.find_element(By.XPATH, '//input[@aria-label="Enter birthday"]')
+        birthday_box.send_keys("08-15")
+
+
+#scroll the web_page
+    
+    def scroll(self):
+        self.driver.execute_script('window.scrollBy(0,5000)')
+    
+ #Awards & recognition
+    def awards_and_recognition(self):
+        wait = WebDriverWait(self.driver,10)
+        awards_and_recognition = wait.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="awardsAccordion"]/div[1]/label/span[1]/div')))
+        awards_and_recognition.click()
+        # self.driver.execute_script('window.scrollBy(0,1000)')
+        awards_and_recognition_1 = self.driver.find_element(By.XPATH, '//button[@data-testid="test-chip-id-oscar_best_actor_nominees"]')
+        awards_and_recognition_2 = self.driver.find_element(By.XPATH, '//button[@data-testid="test-chip-id-oscar_best_actress_winners"]')
+        awards_and_recognition_1.click()
+        awards_and_recognition_2.click()
+        # self.driver.execute_script('window.scrollBy(0,3000)')
+
+#page topics
+    def page_topics(self):
+        self.driver.execute_script('window.scrollBy(0,6000)')
+        page_topics = self.driver.find_element(By.XPATH, '//*[@id="pageTopicsAccordion"]/div[1]/label/span[1]/div')
+        page_topics.click()
+        page_topics_1 = self.driver.find_element(By.XPATH, '//button[@data-testid="test-chip-id-AWARD_NOMINATIONS"]')
+        page_topics_2 = self.driver.find_element(By.XPATH, '//button[@data-testid="test-chip-id-BIOGRAPHY"]')
+        page_topics_1.click()
+        page_topics_2.click()
+        # self.driver.execute_script('window.scrollBy(0,8000)')
+        wait = WebDriverWait(self.driver,10)
+        dropdown_element = wait.until(EC.element_to_be_clickable((By.ID, "within-topic-dropdown-id")))
+        dropdown = Select(dropdown_element)
+        dropdown.select_by_value("Place of birth")
+        placeholder = self.driver.find_element(By.ID, '//input[@placeholder="e.g. Arrested"]')
+        placeholder.send_keys("arrested")
+
+#death date
+    def death_date(self):
+        death_date = self.driver.find_element(By.XPATH, '//*[@id="deathDateAccordion"]/div[1]/label/span[1]/div')
+        death_date.click()
+        wait = WebDriverWait(self.driver, 10)
+        death_date_from = wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@data-testid="deathYearMonth-start"]')))
+        death_date_from.send_keys("1997-08")
+        death_date_to = self.driver.find_element(By.XPATH, '//input[@data-testid="deathYearMonth-end"]')
+        death_date_to.send_keys("2024-04")
+        self.driver.execute_script('window.scrollBy(0,500)') 
+#general identity
+    def general_identity(self):
+        self.driver.execute_script('window.scrollBy(0,6000)')
+        general_identity = self.driver.find_element(By.XPATH, '//*[@id="genderIdentityAccordion"]/div[1]/label/span[1]/div')
+        general_identity.click()
+        general_identity_1 = self.driver.find_element(By.XPATH, '//button[@data-testid="test-chip-id-MALE"]')
+        general_identity_1.click()
+ #credit   
+    def credit(self):
+        self.driver.execute_script('window.scrollBy(0,6000)')
+        credit = self.driver.find_element(By.XPATH, '//*[@id="filmographyAccordion"]/div[1]/label/span[1]/div')
+        credit.click()
+        wait = WebDriverWait(self.driver, 10)
+        credit_box = wait.until(EC.visibility_of_element_located((By.XPATH, '//input[@data-testid="autosuggest-input-test-id-filmography"]')))
+        credit_box.send_keys("80")
+#adult names radio button
+    def adult_names_radio_button(self):
+        self.driver.execute_script('window.scrollBy(0,6000)')
+        adult_names = self.driver.find_element(By.XPATH, '//*[@id="adultNamesAccordion"]/div[1]/label/span[1]/div')
+        adult_names.click()
+        adult_names_radio_button = self.driver.find_element(By.XPATH, '//input[@id="include-adult-names"]')
+        adult_names_radio_button.click()
+
+#click search/submit button
+    def search_button(self):
+        
+        search_button = self.driver.find_element(By.XPATH, '//*[@id="__next"]/main/div[2]/div[3]/section/section/div/section/section/div[2]/div/section/div[1]/button/span')
+        search_button.click()
+
+
+        
+if __name__ == "__main__":
+
+    url = "https://www.imdb.com/search/name/"
+    result = Advanced_name_search(url)
+    result.open_url()
+    result.name_box()
+    result.birth_date()
+    # result.birthday()
+    # result.scroll()
+    # result.awards_and_recognition()
+    # result.page_topics()
+    # result.death_date()
+    # result.general_identity()
+    # result.credit()
+    # result.adult_names_radio_button()
+    result.search_button()
+
